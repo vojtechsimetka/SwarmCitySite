@@ -32,7 +32,7 @@ The following custom properties and mixins are available for styling:
             :host {
                 display: block;
             }
-            
+
             * :focus:hover {
                 outline: none;
             }
@@ -90,11 +90,33 @@ The following custom properties and mixins are available for styling:
                 cursor: pointer;
             }
 
-            .hashtag {
+            .hashtag-hash {
                 font-weight: 800;
                 font-size: 26px;
                 margin-right: 2px;
             }
+
+            .hashtag-hash-flanders {
+                font-weight: 800;
+                font-size: 26px;
+                margin-right: 2px;
+                color: rgb(72, 117, 161);
+            }
+
+            .hashtag-flanders {
+                color: rgb(72, 117, 161);
+
+            }
+
+            img {
+                width: 20px;
+                height: 30px;
+                cursor: pointer;
+                border-radius: 50%;
+                background-size: 40px;
+                margin-left: 3px;
+            }
+
             @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
             only screen and (min--moz-device-pixel-ratio: 1.5),
             only screen and (min-resolution: 240dpi) {
@@ -102,23 +124,33 @@ The following custom properties and mixins are available for styling:
                     @apply --retina;
                 }
             }
-
-
-
         </style>
         <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
         <div class="container" wide-layout$="{{wide}}">
+
+            <div tabindex="3" class="box" on-click="_toFlandersFlood" on-KeyPress="_toFlandersFlood">
+                <div class="flex">
+                    <div class="hashtag-flanders">
+                        <span class="cursor">
+                            <span class="hashtag-hash-flanders">#</span>DCFlood</span>
+                        <img src="[[importPath]]../../images/giveth.png">
+                    </div>
+                    <div class="deals">Fund relief requests for those in need</div>
+                </div>
+                <div class="right"></div>
+            </div>
             <template is="dom-repeat" items="{{hashtags}}" id="domRepeat">
                 <div tabindex="3" class="box" on-click="_toHashtag" on-KeyPress="_toHashtag">
                     <div class="flex">
-                            <div class="hashtag">
-                                <span class="cursor"><span class="hashtag">#</span>[[item.name]]</span>
-                            </div>
+                        <div class="hashtag">
+                            <span class="cursor">
+                                <span class="hashtag-hash">#</span>[[item.name]]</span>
+                        </div>
                         <div class="deals">[[_allDealsCount(item.stats)]] {{localize('deals done')}}</div>
                     </div>
                     <div class="right"></div>
                 </div>
-            </template> 
+            </template>
         </div>
     </template>
     <script>
@@ -170,8 +202,11 @@ The following custom properties and mixins are available for styling:
             */
             _toHashtag(event) {
                 if (event.keyCode === 13 || event.type == 'click') {
-                    this.path = 'hashtag/'+event.model.__data.item.address+'/';
+                    this.path = 'hashtag/' + event.model.__data.item.address + '/';
                 }
+            }
+            _toFlandersFlood() {
+                this.path = 'giveth/0xeba08e7a1d8145b25c78b473fbc35aa24973d908/';
             }
             /**
             * When a hashtag is selected change the route to include the hashtag id.

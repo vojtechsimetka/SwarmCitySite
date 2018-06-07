@@ -109,6 +109,7 @@ This code may only be used under the license found at https://github.com/swarmci
                 @apply --layout-start;
                 @apply --layout-start-justified;
             }
+
             .createlink {
                 /* @apply --text-button-small; */
                 border: 0;
@@ -130,6 +131,54 @@ This code may only be used under the license found at https://github.com/swarmci
                 @apply --button-active;
             }
 
+            .deals {
+                @apply --small-light;
+                color: var(--sc-grey3);
+            }
+
+            .box {
+                cursor: pointer;
+                background-color: none;
+                transition: background-color 0.5s ease;
+                @apply --layout-horizontal;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+                padding: 15px 40px 20px 40px;
+            }
+
+            .box:hover {
+                background-color: var(--sc-white);
+            }
+
+            .container[wide-layout] .flex {
+                @apply --layout-horizontal;
+                @apply --layout-start-justified;
+                @apply --layout-end;
+            }
+
+            .container[wide-layout] .box {
+                padding: 25px 10vw 25px;
+            }
+
+            .flex {
+                @apply --layout-flex;
+            }
+
+            .right {
+                @apply --layout-end-justified;
+                @apply --next-grey4-small;
+            }
+
+            .cursor {
+                @apply --main-title2;
+                cursor: pointer;
+            }
+
+            .hashtag {
+                font-weight: 800;
+                font-size: 26px;
+                margin-right: 2px;
+            }
+
             @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
             only screen and (min--moz-device-pixel-ratio: 1.5),
             only screen and (min-resolution: 240dpi) {
@@ -139,7 +188,7 @@ This code may only be used under the license found at https://github.com/swarmci
             }
         </style>
         <iron-media-query query="(min-width: 600px)" query-matches="{{wide}}"></iron-media-query>
-        <app-location route="{{route}}"></app-location>      
+        <app-location route="{{route}}"></app-location>
         <div class="container" wide-layout$="{{wide}}">
             <div class="header">
                 <div class="topleft">
@@ -150,10 +199,7 @@ This code may only be used under the license found at https://github.com/swarmci
                         </div>
                     </template>
                     <template is="dom-if" if="{{publicKey}}">
-                            <display-my-info
-                            path="{{path}}" 
-                            route="{{route}}"
-                            id="displaymyinfo">
+                        <display-my-info path="{{path}}" route="{{route}}" id="displaymyinfo">
                         </display-my-info>
                     </template>
                 </div>
@@ -161,19 +207,14 @@ This code may only be used under the license found at https://github.com/swarmci
                     <div tabindex="2" class="back" on-tap="_back" id="back" on-KeyPress="_back"></div>
                 </div>
             </div>
-            <display-hashtag-list 
-                id="hashtagList" 
-                path="{{path}}">
+            <display-hashtag-list id="hashtagList" path="{{path}}">
             </display-hashtag-list>
-            <div class="hashtagaddbtn">        
-                    <!-- <dom-if if="{{!faded}}">
+            <div class="hashtagaddbtn">
+                <!-- <dom-if if="{{!faded}}">
                         <template>  -->
-                            <display-hashtagadd-btn 
-                                route="[[route]]" 
-                                path="{{path}}"
-                                id="hashtagaddbtn">
-                            </display-hashtagadd-btn>
-                        <!--  </template>
+                <display-hashtagadd-btn route="[[route]]" path="{{path}}" id="hashtagaddbtn">
+                </display-hashtagadd-btn>
+                <!--  </template>
                     </dom-if> -->
             </div>
         </div>
@@ -275,7 +316,7 @@ This code may only be used under the license found at https://github.com/swarmci
             */
             _back(event) {
                 if (event.keyCode === 13 || event.type == 'tap') {
-                this.set('route.path', 'welcome/');
+                    this.set('route.path', 'welcome/');
                 }
             }
 
@@ -308,8 +349,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             // Going to page Welcome
                             this.$.hashtagList.animate(
                                 [
-                                    {'transform': 'translateY(0px)', 'opacity': '1'},
-                                    {'transform': 'translateY(50px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(0px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(50px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -323,8 +364,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.hashtagList.animate(
                                 [
-                                    {'opacity': '1'},
-                                    {'opacity': '0'},
+                                    { 'opacity': '1' },
+                                    { 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -338,8 +379,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.back.animate(
                                 [
-                                    {'opacity': '1'},
-                                    {'opacity': '0'},
+                                    { 'opacity': '1' },
+                                    { 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -354,8 +395,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             if (this.publicKey) {
                                 this.$$('#displaymyinfo').animate(
                                     [
-                                        {'transform': 'translateY(0px)', 'opacity': '1'},
-                                        {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                        { 'transform': 'translateY(0px)', 'opacity': '1' },
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                     ],
                                     {
                                         fill: 'forwards',
@@ -370,8 +411,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             }
                             this.$.hashtagaddbtn.animate(
                                 [
-                                    {'transform': 'translateY(20px)', 'opacity': '1'},
-                                    {'transform': 'translateY(0px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(0px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -388,8 +429,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             // Going to page My Profile
                             this.$.hashtagList.animate(
                                 [
-                                    {'opacity': '1'},
-                                    {'opacity': '0'},
+                                    { 'opacity': '1' },
+                                    { 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -403,8 +444,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.back.animate(
                                 [
-                                    {'transform': 'translateY(0)', 'opacity': '1'},
-                                    {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -418,8 +459,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.hashtagaddbtn.animate(
                                 [
-                                    {'transform': 'translateY(20px)', 'opacity': '1'},
-                                    {'transform': 'translateY(0px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(0px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -436,8 +477,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             // Going to page My Wallet
                             this.$.hashtagList.animate(
                                 [
-                                    {'opacity': '1'},
-                                    {'opacity': '0'},
+                                    { 'opacity': '1' },
+                                    { 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -451,8 +492,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.back.animate(
                                 [
-                                    {'transform': 'translateY(0)', 'opacity': '1'},
-                                    {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -466,8 +507,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.hashtagaddbtn.animate(
                                 [
-                                    {'transform': 'translateY(20px)', 'opacity': '1'},
-                                    {'transform': 'translateY(0px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(0px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -484,8 +525,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             // Going to page Hashtag
                             this.$.hashtagList.animate(
                                 [
-                                    {'transform': 'translateX(0)'},
-                                    {'transform': 'translateX(-100%)'},
+                                    { 'transform': 'translateX(0)' },
+                                    { 'transform': 'translateX(-100%)' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -499,8 +540,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.hashtagaddbtn.animate(
                                 [
-                                    {'transform': 'translateY(20px)', 'opacity': '1'},
-                                    {'transform': 'translateY(0px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(0px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -514,8 +555,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.back.animate(
                                 [
-                                    {'transform': 'translateY(0)', 'opacity': '1'},
-                                    {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -532,8 +573,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             // Going to page new-Hashtag
                             this.$.hashtagList.animate(
                                 [
-                                    {'transform': 'translateX(0)'},
-                                    {'transform': 'translateX(-100%)'},
+                                    { 'transform': 'translateX(0)' },
+                                    { 'transform': 'translateX(-100%)' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -548,8 +589,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             if (this.publicKey) {
                                 this.$$('#displaymyinfo').animate(
                                     [
-                                        {'transform': 'translateY(0px)', 'opacity': '1'},
-                                        {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                        { 'transform': 'translateY(0px)', 'opacity': '1' },
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                     ],
                                     {
                                         fill: 'forwards',
@@ -564,8 +605,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             }
                             this.$.hashtagaddbtn.animate(
                                 [
-                                    {'transform': 'translateY(20px)', 'opacity': '1'},
-                                    {'transform': 'translateY(0px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    { 'transform': 'translateY(0px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -579,8 +620,8 @@ This code may only be used under the license found at https://github.com/swarmci
                             );
                             this.$.back.animate(
                                 [
-                                    {'transform': 'translateY(0)', 'opacity': '1'},
-                                    {'transform': 'translateY(-30px)', 'opacity': '0'},
+                                    { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    { 'transform': 'translateY(-30px)', 'opacity': '0' },
                                 ],
                                 {
                                     fill: 'forwards',
@@ -600,77 +641,29 @@ This code may only be used under the license found at https://github.com/swarmci
             _loadEntryAnimations() {
                 if (this.routeExit[0] != this.routeExit[1]) {
                     if (this.routeExit[1] == this.pageID) {
-                            // Here come the Entry Animations
-                            switch (this.routeExit[0]) {
-                                case ('welcome'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateY(50px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    if (this.publicKey) {
-                                        this.$$('#displaymyinfo').animate(
-                                            [
-                                                {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                                {'transform': 'translateY(0px)', 'opacity': '1'},
-                                            ],
-                                            {
-                                                fill: 'forwards',
-                                                duration: 300,
-                                                iterations: 1,
-                                                iterationStart: 0,
-                                                easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                            }
-                                        );
+                        // Here come the Entry Animations
+                        switch (this.routeExit[0]) {
+                            case ('welcome'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateY(50px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
                                     }
-                                    this.$.hashtagaddbtn.animate(
+                                );
+                                if (this.publicKey) {
+                                    this.$$('#displaymyinfo').animate(
                                         [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                                case ('my-profile'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateX(0px)', 'opacity': '0'},
-                                            {'transform': 'translateX(0)', 'opacity': '1'},
+                                            { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                            { 'transform': 'translateY(0px)', 'opacity': '1' },
                                         ],
                                         {
                                             fill: 'forwards',
@@ -682,202 +675,202 @@ This code may only be used under the license found at https://github.com/swarmci
                                             endDelay: 0,
                                         }
                                     );
-                                    this.$.hashtagaddbtn.animate(
-                                        [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                                case ('my-wallet'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateX(0px)', 'opacity': '0'},
-                                            {'transform': 'translateX(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.hashtagaddbtn.animate(
-                                        [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                                case ('new-request'):
-                                case ('hashtag'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateX(-50px)', 'opacity': '0'},
-                                            {'transform': 'translateX(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.hashtagaddbtn.animate(
-                                        [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                                case ('download-success'):
-                                case ('print-success'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateY(250px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    if (this.publicKey) {
-                                        this.$$('#displaymyinfo').animate(
-                                            [
-                                                {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                                {'transform': 'translateY(0px)', 'opacity': '1'},
-                                            ],
-                                            {
-                                                fill: 'forwards',
-                                                duration: 300,
-                                                iterations: 1,
-                                                iterationStart: 0,
-                                                easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                                delay: 0,
-                                                endDelay: 0,
-                                            }
-                                        );
+                                }
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
                                     }
-                                    this.$.hashtagaddbtn.animate(
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
+                            case ('my-profile'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateX(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateX(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
+                            case ('my-wallet'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateX(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateX(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
+                            case ('new-request'):
+                            case ('hashtag'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateX(-50px)', 'opacity': '0' },
+                                        { 'transform': 'translateX(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
+                            case ('download-success'):
+                            case ('print-success'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateY(250px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                if (this.publicKey) {
+                                    this.$$('#displaymyinfo').animate(
                                         [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                                case ('new-hashtag'):
-                                    this.$.hashtagList.animate(
-                                        [
-                                            {'transform': 'translateX(-50px)', 'opacity': '0'},
-                                            {'transform': 'translateX(0)', 'opacity': '1'},
+                                            { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                            { 'transform': 'translateY(0px)', 'opacity': '1' },
                                         ],
                                         {
                                             fill: 'forwards',
@@ -889,56 +882,104 @@ This code may only be used under the license found at https://github.com/swarmci
                                             endDelay: 0,
                                         }
                                     );
-                                    if (this.publicKey) {
-                                        this.$$('#displaymyinfo').animate(
-                                            [
-                                                {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                                {'transform': 'translateY(0px)', 'opacity': '1'},
-                                            ],
-                                            {
-                                                fill: 'forwards',
-                                                duration: 300,
-                                                iterations: 1,
-                                                iterationStart: 0,
-                                                easing: 'cubic-bezier(0.42,0,0.177,0.751)',
-                                                delay: 0,
-                                                endDelay: 0,
-                                            }
-                                        );
+                                }
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
                                     }
-                                    this.$.hashtagaddbtn.animate(
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
+                            case ('new-hashtag'):
+                                this.$.hashtagList.animate(
+                                    [
+                                        { 'transform': 'translateX(-50px)', 'opacity': '0' },
+                                        { 'transform': 'translateX(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.177,0.751)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                if (this.publicKey) {
+                                    this.$$('#displaymyinfo').animate(
                                         [
-                                            {'transform': 'translateY(0px)', 'opacity': '0'},
-                                            {'transform': 'translateY(20px)', 'opacity': '1'},
+                                            { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                            { 'transform': 'translateY(0px)', 'opacity': '1' },
                                         ],
                                         {
                                             fill: 'forwards',
                                             duration: 300,
                                             iterations: 1,
                                             iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                            easing: 'cubic-bezier(0.42,0,0.177,0.751)',
                                             delay: 0,
                                             endDelay: 0,
                                         }
                                     );
-                                    this.$.back.animate(
-                                        [
-                                            {'transform': 'translateY(-30px)', 'opacity': '0'},
-                                            {'transform': 'translateY(0)', 'opacity': '1'},
-                                        ],
-                                        {
-                                            fill: 'forwards',
-                                            duration: 300,
-                                            iterations: 1,
-                                            iterationStart: 0,
-                                            easing: 'cubic-bezier(0.42,0,0.58,1)',
-                                            delay: 0,
-                                            endDelay: 0,
-                                        }
-                                    );
-                                    break;
-                            }
+                                }
+                                this.$.hashtagaddbtn.animate(
+                                    [
+                                        { 'transform': 'translateY(0px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(20px)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                this.$.back.animate(
+                                    [
+                                        { 'transform': 'translateY(-30px)', 'opacity': '0' },
+                                        { 'transform': 'translateY(0)', 'opacity': '1' },
+                                    ],
+                                    {
+                                        fill: 'forwards',
+                                        duration: 300,
+                                        iterations: 1,
+                                        iterationStart: 0,
+                                        easing: 'cubic-bezier(0.42,0,0.58,1)',
+                                        delay: 0,
+                                        endDelay: 0,
+                                    }
+                                );
+                                break;
                         }
+                    }
                 }
             }
         }
